@@ -1,24 +1,15 @@
 -- Dimensions Tables
 CREATE TABLE IF NOT EXISTS dim_fund (
-    amfi_code INTEGER PRIMARY KEY,
+    scheme_code INTEGER PRIMARY KEY,
     scheme_name TEXT,
-    category TEXT,
-    sub_category TEXT,
-    expense_ratio REAL
+    fund_house TEXT
 );
 
-CREATE TABLE IF NOT EXISTS dim_date (
-    date TEXT PRIMARY KEY,
-    year INTEGER,
-    month INTEGER,
-    day INTEGER
-);
-
--- Fact Tables
+-- Fact Tables (Star Schema Structure)
 CREATE TABLE IF NOT EXISTS fact_nav (
-    amfi_code INTEGER,
+    scheme_code INTEGER,
     date TEXT,
     nav REAL,
-    PRIMARY KEY (amfi_code, date),
-    FOREIGN KEY (amfi_code) REFERENCES dim_fund(amfi_code)
+    PRIMARY KEY (scheme_code, date),
+    FOREIGN KEY (scheme_code) REFERENCES dim_fund(scheme_code)
 );
